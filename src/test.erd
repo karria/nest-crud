@@ -1,0 +1,120 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dineug/erd-editor/main/json-schema/schema.json",
+  "version": "3.0.0",
+  "settings": {
+    "width": 2000,
+    "height": 2000,
+    "scrollTop": -1,
+    "scrollLeft": 0,
+    "zoomLevel": 1,
+    "show": 431,
+    "database": 4,
+    "databaseName": "test",
+    "canvasType": "ERD",
+    "language": 1,
+    "tableNameCase": 4,
+    "columnNameCase": 2,
+    "bracketType": 1,
+    "relationshipDataTypeSync": true,
+    "relationshipOptimization": false,
+    "columnOrder": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "maxWidthComment": -1,
+    "ignoreSaveSettings": 0
+  },
+  "doc": {
+    "tableIds": [
+      "uSt_iTjLyLzIRWbgF1PHG"
+    ],
+    "relationshipIds": [],
+    "indexIds": [],
+    "memoIds": []
+  },
+  "collections": {
+    "tableEntities": {
+      "uSt_iTjLyLzIRWbgF1PHG": {
+        "id": "uSt_iTjLyLzIRWbgF1PHG",
+        "name": "COM_INFO",
+        "comment": "기업 회원 정보",
+        "columnIds": [
+          "abvBy2dPmOOfzDWSAkJa3"
+        ],
+        "seqColumnIds": [
+          "abvBy2dPmOOfzDWSAkJa3"
+        ],
+        "ui": {
+          "x": 200,
+          "y": 101,
+          "zIndex": 2,
+          "widthName": 66,
+          "widthComment": 71,
+          "color": ""
+        },
+        "meta": {
+          "updateAt": 1718787726769,
+          "createAt": 1718787668018
+        }
+      }
+    },
+    "tableColumnEntities": {
+      "abvBy2dPmOOfzDWSAkJa3": {
+        "id": "abvBy2dPmOOfzDWSAkJa3",
+        "tableId": "uSt_iTjLyLzIRWbgF1PHG",
+        "name": "",
+        "comment": "",
+        "dataType": "",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1718787733278,
+          "createAt": 1718787726769
+        }
+      }
+    },
+    "relationshipEntities": {},
+    "indexEntities": {},
+    "indexColumnEntities": {},
+    "memoEntities": {}
+  },
+  "lww": {
+    "settings.databaseName": [
+      "settings",
+      -1,
+      -1,
+      {
+        "databaseName": 1718787649025
+      }
+    ],
+    "uSt_iTjLyLzIRWbgF1PHG": [
+      "tableEntities",
+      1718787668015,
+      -1,
+      {
+        "name": 1718787715093,
+        "comment": 1718787723510
+      }
+    ],
+    "abvBy2dPmOOfzDWSAkJa3": [
+      "tableColumnEntities",
+      1718787726767,
+      -1,
+      {
+        "options(notNull)": 1718787733276
+      }
+    ]
+  }
+}
