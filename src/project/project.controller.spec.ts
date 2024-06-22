@@ -1,18 +1,50 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProjectController } from './project.controller';
+import { ProjectService } from './project.service';
+
+const mockProjectService = {
+  createProject: jest.fn()
+}
 
 describe('ProjectController', () => {
-  let controller: ProjectController;
+  let projectController: ProjectController;
+  let projectService: ProjectService;
 
   beforeEach(async () => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProjectController],
+      providers: [
+        {
+          provide: ProjectService,
+          useValue: mockProjectService
+        }
+      ]
     }).compile();
 
-    controller = module.get<ProjectController>(ProjectController);
+    projectController = module.get<ProjectController>(ProjectController);
+    projectService = module.get<ProjectService>(ProjectService);
+  });
+
+  afterAll(async () => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(projectController).toBeDefined();
+    expect(projectService).toBeDefined();
   });
+
+  describe('[e2e] POST /v1/auth/signup', () => {
+    it('createProject', () => {
+
+    })
+  });
+
+  
 });

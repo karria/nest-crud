@@ -1,8 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 
-@Controller('project')
+@Controller('v1/project')
 export class ProjectController {
     constructor(private readonly projectService: ProjectService) {}
 
@@ -10,4 +10,10 @@ export class ProjectController {
     createProject(@Body() createProjectDto: CreateProjectDto) {
         return this.projectService.createProject(createProjectDto);
     }
+
+    @Get()
+    getProject(): String {
+        return "getProject";
+    }
+    
 }
