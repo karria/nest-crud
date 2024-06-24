@@ -8,7 +8,7 @@ export class ProjectController {
 
     @Post()
     createProject(@Body() createProjectDto: CreateProjectDto) {
-        return this.projectService.createProject(createProjectDto);
+        return this.projectService.create(createProjectDto);
     }
 
     @Get()
