@@ -9,6 +9,9 @@ export class Project {
   @Column({ type: 'varchar', length: 1000, comment: '프로젝트 제목' })
   title: string;
 
+  @Column({ type: 'varchar', nullable: true, comment: '파일저장 경로'})
+  fileUrl: string;
+
   @CreateDateColumn({ name: 'create_at', comment: '생성일' })
   createdAt: Date;
 
@@ -16,5 +19,5 @@ export class Project {
   updatedAt: Date;
 
   @OneToMany(() => Memo, (memo) => memo.projectUuid)
-  memos: Memo;
+  memos: Memo[];
 }

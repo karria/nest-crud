@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, Max } from "class-validator";
+import { IsNotEmpty, IsString, Length, Max } from "class-validator";
 
 export class CreateMemoDto {
   @IsString()
@@ -7,6 +7,6 @@ export class CreateMemoDto {
 
   @IsString()
   @IsNotEmpty()
-  @Max(1000)
+  @Length(1, 1000)
   content: string;
 }

@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CreateMemoDto } from '@src/memo/dto/create-memo.dto';
 import { MemoController } from '@src/memo/memo.controller';
 import { MemoService } from '@src/memo/memo.service';
-import exp from 'constants';
 
 const mockMemoService = {
   create: jest.fn(),

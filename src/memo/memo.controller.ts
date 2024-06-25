@@ -10,7 +10,7 @@ export class MemoController {
   @Post()
   async create(@Body() createMemoDto: CreateMemoDto) {
     const memo = await this.memoService.create(createMemoDto);
-    return memo.id;
+    return { id: memo.id };
   }
 
   @Get()
