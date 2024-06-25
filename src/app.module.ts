@@ -8,8 +8,8 @@ import { MemoModule } from './memo/memo.module';
 @Module({
   imports: [ 
     TypeOrmModule.forRoot({ 
-      type: 'sqlite',
-      database: 'lattice.task.db',
+      type: 'better-sqlite3',
+      database: ':memory:',
       autoLoadEntities: true,
       synchronize: true,
       logging: true,

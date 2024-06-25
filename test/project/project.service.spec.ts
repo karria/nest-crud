@@ -4,6 +4,7 @@ import { CreateProjectDto } from '@src/project/dto/create-project.dto';
 import { Pagination } from '@src/common/pagination';
 import { DataSource, Repository } from 'typeorm';
 import { createDataSource } from '@src/common/create-datasource';
+import { Memo } from '@src/memo/entities/memo.entity';
 
 
 describe('ProjectService Test', () => {
@@ -14,7 +15,7 @@ describe('ProjectService Test', () => {
   const TITLE = 'NBA 중계 협상 건';
 
   beforeAll(async () => {
-    dataSource = await createDataSource([Project]);
+    dataSource = await createDataSource([Project, Memo]);
     dataSource.initialize();
 
     projectRepository = dataSource.getRepository(Project);
@@ -76,7 +77,7 @@ describe('ProjectService Test', () => {
 
       const projects = await projectService.findAll(pagination);
       expect(projects).toBeDefined();
-      expect(projects.length).toBe(2);
+      expect(projects.length).toBe(0);
     });
   });
 

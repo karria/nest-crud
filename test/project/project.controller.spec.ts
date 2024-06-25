@@ -3,7 +3,11 @@ import { ProjectController } from '@src/project/project.controller';
 import { ProjectService } from '@src/project/project.service';
 
 const mockProjectService = {
-  createProject: jest.fn()
+  create: jest.fn(),
+  findAll: jest.fn(),
+  findOne: jest.fn(),
+  update: jest.fn(),
+  remove: jest.fn(),
 }
 
 describe('ProjectController', () => {
