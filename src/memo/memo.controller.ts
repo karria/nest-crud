@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { MemoService } from './memo.service';
-import { CreateMemoDto } from './dto/create-memo.dto';
-import { UpdateMemoDto } from './dto/update-memo.dto';
+import { MemoService } from '@src/memo/memo.service';
+import { CreateMemoDto } from '@src/memo/dto/create-memo.dto';
+import { UpdateMemoDto } from '@src/memo/dto/update-memo.dto';
 
 @Controller('memo')
 export class MemoController {
@@ -28,7 +28,7 @@ export class MemoController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.memoService.remove(+id);
+  remove(@Param('id') id: string, @Param('projectUuid') projectUuid: string) {
+    return this.memoService.remove(+id, projectUuid);
   }
 }

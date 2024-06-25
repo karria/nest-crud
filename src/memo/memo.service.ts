@@ -1,26 +1,57 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMemoDto } from './dto/create-memo.dto';
-import { UpdateMemoDto } from './dto/update-memo.dto';
+import { CreateMemoDto } from '@src/memo/dto/create-memo.dto';
+import { UpdateMemoDto } from '@src/memo/dto/update-memo.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Memo } from '@src/memo/entities/memo.entity';
+import { Repository } from 'typeorm';
+import { Pagination } from '@src/common/pagination';
 
 @Injectable()
 export class MemoService {
-  create(createMemoDto: CreateMemoDto) {
-    return 'This action adds a new memo';
+  constructor(
+    @InjectRepository(Memo)
+    private readonly memoRepository: Repository<Memo>,
+  ) {}
+
+  async create(createMemoDto: CreateMemoDto): Promise<Memo> {
+    const result = await this.memoRepository.save({...createMemoDto});
+    return result;
   }
 
-  findAll() {
-    return `This action returns all memo`;
+  async findAll(): Promise<Memo[]> {
+    return await this.memoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} memo`;
+  async findAllByProjectUuid(pagination: Pagination): Promise<Memo[]> {
+    const [memos, total] = await this.memoRepository.findAndCount({
+      skip: pagination.getSkip(),
+      take: pagination.getSize(),
+    })
+
+    return memos;
   }
 
-  update(id: number, updateMemoDto: UpdateMemoDto) {
-    return `This action updates a #${id} memo`;
+  async findOne(id: number): Promise<Memo> {
+    return await this.memoRepository.findOne({
+      where: { id: id },
+    })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} memo`;
+  async update(id: number, updateMemoDto: UpdateMemoDto): Promise<Memo> {
+    const memo = await this.memoRepository.findOne({
+      where: { id: id },
+    })
+
+    const updateMemo = {
+      ...memo,
+      ...updateMemoDto,
+    };
+
+    return await this.memoRepository.save(updateMemo);
+  }
+
+  async remove(id: number, projectUuid: string): Promise<boolean> {
+    const result = await this.memoRepository.delete({ id: id, projectUuid: projectUuid });
+    return result.affected ? true : false;
   }
 }

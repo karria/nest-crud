@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProjectController } from '../../src/project/project.controller';
-import { ProjectService } from '../../src/project/project.service';
+import { ProjectController } from '@src/project/project.controller';
+import { ProjectService } from '@src/project/project.service';
 
 const mockProjectService = {
   createProject: jest.fn()

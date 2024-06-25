@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Memo } from "@src/memo/entities/memo.entity";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('PROJECT')
 export class Project {
@@ -13,4 +14,7 @@ export class Project {
 
   @UpdateDateColumn({ name: 'update_at', comment: '수정일' })
   updatedAt: Date;
+
+  @OneToMany(() => Memo, (memo) => memo.projectUuid)
+  memos: Memo;
 }

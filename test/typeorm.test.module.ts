@@ -1,11 +1,14 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-export const TypeORMTestModule = (entities: any[]) =>
+export const TypeORMTestModule = (entities: any[]) => [
   TypeOrmModule.forRoot({
     type: 'sqlite',
-      database: 'lattice.task.db',
+      database: ':memory',
       autoLoadEntities: true,
       synchronize: true,
+      entities: [...entities],
       // logging: true,
       dropSchema: true,
-  });
+  }),
+];
+

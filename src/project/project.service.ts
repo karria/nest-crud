@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProjectDto } from './dto/create-project.dto';
+import { CreateProjectDto } from '@src/project/dto/create-project.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Project } from './entity/project.entity';
+import { Project } from '@src/project/entity/project.entity';
 import { Repository } from 'typeorm';
-import { UpdateProjectDto } from './dto/update-project.dto';
-import { Pagination } from 'src/common/pagination';
+import { UpdateProjectDto } from '@src/project/dto/update-project.dto';
+import { Pagination } from '@src/common/pagination';
+import { Memo } from '@src/memo/entities/memo.entity';
 
 
 @Injectable()
@@ -12,6 +13,7 @@ export class ProjectService {
   constructor(
     @InjectRepository(Project) 
     private readonly projectRepository: Repository<Project>,
+    // private readonly memoRepository: Repository<Memo>,
   ) {}
 
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
@@ -19,7 +21,7 @@ export class ProjectService {
     return result;
   }
 
-  async modify(updateProjectDto: UpdateProjectDto): Promise<Project> {
+  async update(updateProjectDto: UpdateProjectDto): Promise<Project> {
   
     const product = await this.projectRepository.findOne({
       where: { uuid: updateProjectDto.uuid },
@@ -51,7 +53,7 @@ export class ProjectService {
     return proejcts;
   }
 
-  async delete(uuid: string): Promise<boolean> {
+  async remove(uuid: string): Promise<boolean> {
     const result = await this.projectRepository.delete({ uuid: uuid });
     return result.affected ? true : false;
   }

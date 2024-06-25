@@ -1,41 +1,49 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProjectService } from '../../src/project/project.service';
+import { ProjectService } from '@src/project/project.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeORMTestModule } from '../../test/typeorm.test.module';
-import { Project } from '../../src/project/entity/project.entity';
-import { CreateProjectDto } from 'src/project/dto/create-project.dto';
-import { Pagination } from '../../src/common/pagination';
+import { TypeORMTestModule } from '@test/typeorm.test.module';
+import { Project } from '@src/project/entity/project.entity';
+import { CreateProjectDto } from '@src/project/dto/create-project.dto';
+import { Pagination } from '@src/common/pagination';
+import { DataSource, Repository } from 'typeorm';
+import { createDataSource } from '@src/common/create-datasource';
 
 
-let service: ProjectService;
+describe('ProjectService Test', () => {
+  let dataSource: DataSource;
+  let projectRepository: Repository<Project>;
+  let projectService: ProjectService;
 
-beforeAll(async () => {
-  const module: TestingModule = await Test.createTestingModule({
-    imports: [
-      TypeORMTestModule([Project]),
-      TypeOrmModule.forFeature([Project]),
-    ],
-    providers: [ProjectService],
-  }).compile();
+  const TITLE = 'NBA 중계 협상 건';
 
-  service = module.get<ProjectService>(ProjectService);
-});
+  beforeAll(async () => {
+    dataSource = await createDataSource([Project]);
+    dataSource.initialize();
 
-describe('ProjectService', () => {
-  let insertCount = 0;
-
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+    projectRepository = dataSource.getRepository(Project);
+    projectService = new ProjectService(projectRepository);
   });
 
-  describe('create', () => {
+  afterAll(async () => {
+    await dataSource.destroy();
+  });
+
+  afterEach(async () => {
+    await projectRepository.query('DELETE FROM project');
+  });
+
+  it('should be defined', () => {
+    expect(projectService).toBeDefined();
+    expect(dataSource).toBeDefined();
+  });
+
+  describe('create()', () => {
     it('프로젝트를 생성하고 저장된 프로젝트 객체를 반환한다.', async () => {
       const inputData: CreateProjectDto = {
         title: 'NBA 중계 협상 건'
       };
       
-      const result = await service.create(inputData);
-      insertCount++;
+      const result = await projectService.create(inputData);
 
       expect(result).toBeDefined();
       expect(result.uuid).not.toBeNull();
@@ -43,42 +51,41 @@ describe('ProjectService', () => {
     });
   });
 
-  describe('modify', () => {
+  describe('update()', () => {
     it('프로젝트를 수정하고 수정된 프로젝트 객체를 반환한다.', () => {
 
     });
   });
 
-  describe('findOne', () => {
+  describe('findOne()', () => {
     it('프로젝트 아이디를 받아 프로젝트를 반환한다.', async () => {
       const inputData: CreateProjectDto = {
         title: '임대계약'
       };
 
-      const insertData: Project = await service.create(inputData);
-      insertCount++;
+      const insertData: Project = await projectService.create(inputData);
 
-      const result: Project = await service.findOne(insertData.uuid);
+      const result: Project = await projectService.findOne(insertData.uuid);
       expect(result).toBeDefined();
       expect(result.title).toBe(inputData.title);
     });
   });
 
-  describe('findAll', () => {
+  describe('findAll()', () => {
     it('페이징 정보를 받아 프로젝트 목록을 반환한다.', async () => {
       let pagination = new Pagination();
       pagination.page = 0;
       pagination.size = 20;
 
-      const projects = await service.findAll(pagination);
+      const projects = await projectService.findAll(pagination);
       expect(projects).toBeDefined();
       expect(projects.length).toBe(2);
     });
   });
 
-  describe('delete', () => {
+  describe('remove()', () => {
     it('프로젝트 아이디를 받아 프로젝트를 삭제하고 true를 반환한다.', () => {
 
     });
   });
-});
+})
