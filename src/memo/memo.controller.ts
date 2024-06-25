@@ -3,13 +3,14 @@ import { MemoService } from '@src/memo/memo.service';
 import { CreateMemoDto } from '@src/memo/dto/create-memo.dto';
 import { UpdateMemoDto } from '@src/memo/dto/update-memo.dto';
 
-@Controller('memo')
+@Controller('memos')
 export class MemoController {
   constructor(private readonly memoService: MemoService) {}
 
   @Post()
-  create(@Body() createMemoDto: CreateMemoDto) {
-    return this.memoService.create(createMemoDto);
+  async create(@Body() createMemoDto: CreateMemoDto) {
+    const memo = await this.memoService.create(createMemoDto);
+    return memo.id;
   }
 
   @Get()

@@ -3,8 +3,9 @@ import { CreateMemoDto } from '@src/memo/dto/create-memo.dto';
 import { UpdateMemoDto } from '@src/memo/dto/update-memo.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Memo } from '@src/memo/entities/memo.entity';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 import { Pagination } from '@src/common/pagination';
+import { GetMemoDto } from './dto/get-memo.dto';
 
 @Injectable()
 export class MemoService {
@@ -22,10 +23,13 @@ export class MemoService {
     return await this.memoRepository.find();
   }
 
-  async findAllByProjectUuid(pagination: Pagination): Promise<Memo[]> {
-    const [memos, total] = await this.memoRepository.findAndCount({
-      skip: pagination.getSkip(),
-      take: pagination.getSize(),
+  async findAllByProjectUuid(getMemoDto: GetMemoDto): Promise<Memo[]> {
+    
+
+    const memos = await this.memoRepository.find({
+      where: { projectUuid: Equal(getMemoDto.projectUuid) },
+      skip: getMemoDto.getSkip(),
+      take: getMemoDto.getSize(),
     })
 
     return memos;
