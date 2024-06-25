@@ -1,7 +1,4 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { ProjectService } from '@src/project/project.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeORMTestModule } from '@test/typeorm.test.module';
 import { Project } from '@src/project/entity/project.entity';
 import { CreateProjectDto } from '@src/project/dto/create-project.dto';
 import { Pagination } from '@src/common/pagination';
