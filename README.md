@@ -1,6 +1,6 @@
 ## Description
 
-래티스 백엔드 엔지니어 사전 과제
+래티스 백엔드 엔지니어 사전 과제
 
 ## Installation
 
